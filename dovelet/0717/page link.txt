@@ -1,0 +1,5 @@
+http://59.23.113.171/pool/koi_safety/koi_safety.php?pname=koi_safety
+
+http://59.23.113.171/30stair/subset/subset.php?pname=subset
+
+http://59.23.113.171/30stair/lake/lake.php?pname=lake

@@ -1,0 +1,8 @@
+
+<Stack문제>
+http://59.23.113.171/30stair/tw/tw.php?pname=tw
+http://59.23.113.171/30stair/bhd/bhd.php?pname=bhd
+
+<Queue문제>
+http://59.23.113.171/30stair/dam/dam.php?pname=dam
+http://59.23.113.171/30stair/horse_knight/horse_knight.php?pname=horse_knight
