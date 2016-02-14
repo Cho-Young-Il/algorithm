@@ -1,0 +1,99 @@
+#include <iostream>
+
+using namespace std;
+
+int bingoMap[20][20];
+int R;
+
+void dataInput() {
+	for (int i = 0; i < 5; i++){
+		for (int j = 0; j < 5; j++){
+			cin >> bingoMap[i][j];
+		}
+	}
+}
+
+int checkHorizon(){
+	int bingoCnt = 0;
+	for (int i = 0; i < 5; i++) {
+		int cnt = 0;
+		for (int j = 0; j < 5; j++){
+			if (bingoMap[i][j] == 0) cnt++;
+		}
+		if (cnt >= 5) bingoCnt++;
+	}
+	return bingoCnt;
+}
+
+int checkVertical() {
+	int bingoCnt = 0;
+	for (int i = 0; i < 5; i++) {
+		int cnt = 0;
+		for (int j = 0; j < 5; j++){
+			if (bingoMap[j][i] == 0) cnt++;
+		}
+		if (cnt >= 5) bingoCnt++;
+	}
+	return bingoCnt;
+}
+
+int checkCross(){
+	int bingoCnt = 0;
+	int startX = 0, startY = 0;
+	int cnt = 0;
+	while (startX < 5) {
+		if (bingoMap[startX][startY] == 0) cnt++;
+		startX++;
+		startY++;
+	}
+	if (cnt == 5) bingoCnt++;
+	startX = 0, startY = 4;
+	cnt = 0;
+	while (startX < 5){
+		if (bingoMap[startX][startY] == 0) cnt++;
+		startX++;
+		startY--;
+	}
+	if (cnt == 5) bingoCnt++;
+	return bingoCnt;
+}
+
+bool checkBingo(){
+	int sum = 0;
+	sum += checkHorizon();
+	sum += checkVertical();
+	sum += checkCross();
+	return (sum >= 3);
+}
+
+bool eraseNum(int num){
+	for (int i = 0; i < 5; i++){
+		for (int j = 0; j < 5; j++){
+			if (bingoMap[i][j] == num)
+				bingoMap[i][j] = 0;
+		}
+	}
+	return checkBingo();
+}
+
+void process(){
+	for (int i = 0; i < 25; i++){
+		int input;
+		cin >> input;
+		if (eraseNum(input)) {
+			R = i;
+			break;
+		}
+	}
+}
+
+void printResult(){
+	cout << R + 1 << endl;
+}
+
+int main() {
+	dataInput();
+	process();
+	printResult();
+	return 0;
+}

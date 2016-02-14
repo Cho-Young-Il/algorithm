@@ -1,0 +1,66 @@
+#include <iostream>
+ 
+using namespace std;
+ 
+int C[26];
+int N[7] = { 1,5,10,50,100,500,1000 };
+char H[7] = { 'I', 'V', 'X', 'L', 'C', 'D', 'M' };
+ 
+void initCharacter() {
+    C[8]    =   N[0];
+    C[21]   =   N[1];
+    C[23]   =   N[2];
+    C[11]   =   N[3];
+    C[2]    =   N[4];
+    C[3]    =   N[5];
+    C[12]   =   N[6];
+}
+ 
+int dataInput() {
+    int sum = 0;
+    char input[200];
+    cin >> input;
+    for (int i = 0; input[i] != '\0'; i++) {
+        int curNum = C[input[i] - 'A'];
+        int nextNum = (input[i + 1]==0)? 0:C[input[i+1]-'A'];
+        if (curNum >= nextNum) sum += curNum;
+        else {
+            sum += (nextNum - curNum);
+            i++;
+        }
+    }
+    return sum;
+}
+ 
+void decode(int num) {
+    int idx = 6;
+    while (num > 0) {
+        if (num >= N[idx]) {
+            num -= N[idx];
+            cout << H[idx];
+        }
+        else if ((idx % 2 == 1) && (idx >= 1) && (num >= N[idx - 1] * 4)) {
+            num -= (N[idx] - N[idx - 1]);
+            cout << H[idx - 1] << H[idx];
+        }
+        else if ((idx % 2 == 0) && (idx >= 2) && (num >= (N[idx - 1] + N[idx - 2] * 4))) {
+            num -= (N[idx] - N[idx - 2]);
+            cout << H[idx - 2] << H[idx];
+        }
+        else
+            idx--;
+    }
+}
+ 
+void process(int a, int b)
+{
+    int sum = a + b;
+    cout << sum << endl;
+    decode(sum);
+}
+ 
+int main() {
+    initCharacter();
+    process(dataInput(), dataInput());
+    return 0;
+}

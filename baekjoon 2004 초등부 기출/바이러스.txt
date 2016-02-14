@@ -1,0 +1,43 @@
+#include <iostream>
+ 
+using namespace std;
+ 
+int N, M;
+bool G[101][101];
+bool visit[101];
+ 
+void dataInput() {
+    cin >> M >> N;
+    for (int i = 0; i < N; i++) {
+        int row, col;
+        cin >> row >> col;
+        G[row][col] = G[col][row] = true;
+    }
+}
+ 
+void dfs(int num) {
+    for (int i = 1; i <= M; i++) {
+        if (!G[num][i]) continue;
+        G[num][i] = G[i][num] = false;
+        visit[i] = true;
+        dfs(i);
+    }
+}
+ 
+void process() {
+    dfs(1);
+}
+ 
+void printResult() {
+    int sum = 0;
+    for (int i = 1; i <= M; i++) {
+        if (visit[i]) sum++;
+    }
+    cout << sum - 1 << endl;
+}
+ 
+int main() {
+    dataInput();
+    process();
+    printResult();
+}

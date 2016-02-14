@@ -1,0 +1,68 @@
+#include <iostream>
+
+using namespace std;
+
+int paper[10];
+int P;
+
+void dataInput() {
+	for (int i = 0; i < 6; i++) {
+		cin >> paper[i];
+	}
+}
+
+int consumedAll() {
+	int sum = 0;
+	for (int i = 0; i < 5; i++)	{
+		sum += paper[i];
+	}
+	return sum;
+}
+
+void attachPaper(int whitePaper[6][6], int i, int j, int width){
+	for (int row = i; row < i + width; row++){
+		for (int col = j; col < j + width; col++){
+			whitePaper[row][col] = 1;
+		}
+	}
+	paper[width - 1]--;
+}
+
+void fill(int whitePaper[6][6], int width){
+	for (int i = 0; i < 6; i++){
+		if (i + width > 6) break;;
+		for (int j = 0; j < 6; j++){
+			if (j + width > 6) break;
+			if (whitePaper[i][j] == 0)
+				attachPaper(whitePaper, i, j, width);
+			if (paper[width - 1] == 0) return;
+		}
+	}
+}
+
+void fillPaper() {
+	int whitePaper[6][6] = { 0 };
+	for (int i = 5; i >= 0; i--) {
+		if (paper[i] <= 0) continue;
+		int width = i + 1;
+		fill(whitePaper, width);
+	}
+}
+
+void process(){
+	while (consumedAll() > 0){
+		fillPaper();
+		P++;
+	}
+}
+
+void printResult() {
+	cout << P << endl;
+}
+
+int main() {
+	dataInput();
+	process();
+	printResult();
+	return 0;
+}

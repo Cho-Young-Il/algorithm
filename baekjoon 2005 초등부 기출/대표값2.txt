@@ -1,0 +1,48 @@
+#include <iostream>
+
+using namespace std;
+
+int input[10];
+
+void dataInput() {
+	for (int i = 0; i < 5; i++){
+		cin >> input[i];
+	}
+}
+
+int avgProcess(){
+	int sum = 0;
+	for (int i = 0; i < 5; i++)	{
+		sum += input[i];
+	}
+	return (sum / 5);
+}
+
+int midProcess() {
+	for (int i = 0; i < 4; i++) {
+		int min = 9999;
+		int minIdx;
+		for (int j = i; j < 5; j++){
+			if (min > input[j]) {
+				min = input[j];
+				minIdx = j;
+			}
+		}
+		int temp = input[minIdx];
+		input[minIdx] = input[i];
+		input[i] = temp;
+	}
+	return input[2];
+}
+
+void process()
+{
+	cout << avgProcess() << endl;
+	cout << midProcess() << endl;
+}
+
+int main() {
+	dataInput();
+	process();
+	return 0;
+}

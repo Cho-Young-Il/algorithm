@@ -1,0 +1,41 @@
+#include <iostream>
+ 
+using namespace std;
+ 
+int N;
+char W[101][11];
+ 
+void dataInput() {
+    cin >> N;
+    for (int i = 0; i < N; i++)
+        cin >> W[i];
+}
+ 
+bool compare(char src[], char dest[]){
+    int table[27] = { 0 };
+    int diff = 0;
+    int flag = 1;
+    for (int i = 0; src[i] != '\0'; i++) table[src[i] - 'A']++;
+    for (int i = 0; dest[i] != '\0'; i++) table[dest[i] - 'A']--;
+    for (int i = 0; i < 26; i++) {
+        if (table[i] != 0) {
+            diff+=(table[i]<0)?  (-1)*(table[i]):table[i];
+            flag *= table[i];
+        }
+    }
+    return (diff < 2 || (diff==2 && flag < 0));
+}
+ 
+void process() {
+    int cnt = 0;
+    for (int i = 1; i < N; i++) {
+        if (compare(W[0], W[i])) cnt++;
+    }
+    cout << cnt << endl;
+}
+ 
+int main() {
+    dataInput();
+    process();
+    return 0;
+}

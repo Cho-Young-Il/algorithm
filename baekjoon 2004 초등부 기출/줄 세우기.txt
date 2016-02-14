@@ -1,0 +1,42 @@
+#include <iostream>
+ 
+using namespace std;
+ 
+int N;
+int S[101];
+ 
+void push(int from, int len) {
+    for (int i = len - 1; i >= from; i--)    S[i + 1] = S[i];
+}
+ 
+void put(int from, int idx){
+    push(from, idx);
+    S[from] = idx+1;
+}
+ 
+void dataInput() {
+    cin >> N;
+}
+ 
+void process() {
+    for (int idx = 0; idx < N; idx++) {
+        int diff;
+        cin >> diff;
+        put(idx - diff, idx);
+    }
+}
+ 
+void printResult()
+{
+    for (int i = 0; i < N; i++) {
+        cout << S[i] << " ";
+    }
+    cout << endl;
+}
+ 
+int main() {
+    dataInput();
+    process();
+    printResult();
+    return 0;
+}

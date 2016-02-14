@@ -1,0 +1,92 @@
+#include <iostream>
+
+using namespace std;
+
+typedef struct PointNodeType{
+	int x;
+	int y;
+	int step;
+}PointNode;
+
+int front, rear;
+PointNode arrayQueue[100001];
+
+int N, M, maxDist;
+int map[100][100];
+int visit[100][100];
+int dir[4][2] = { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 } };
+
+void enqueue(PointNode newNode) {
+	visit[newNode.x][newNode.y] = newNode.step+1;
+	arrayQueue[rear++] = newNode;
+}
+
+PointNode peek(){
+	return arrayQueue[front];
+}
+
+void dequeue() {
+	front++;
+}
+
+void dataInput() {
+	cin >> N >> M;
+	for (int i = 1; i <= N; i++){
+		char input[100];
+		cin >> input;
+		for (int j = 1; j <= M; j++){
+			if (input[j-1] == 'L') map[i][j] = 1;
+		}
+	}
+}
+
+int bfs(PointNode startNode){
+	int maxBfs = 0;
+	enqueue(startNode);
+	do {
+		PointNode curNode = peek();
+		for (int i = 0; i < 4; i++) {
+			int newX = curNode.x + dir[i][0];
+			int newY = curNode.y + dir[i][1];
+			if (map[newX][newY] == 0 || visit[newX][newY] > 0) continue;
+			maxBfs = curNode.step + 1;
+			enqueue({ newX, newY, curNode.step + 1 });
+		}
+		dequeue();
+	} while (front != rear);
+	return maxBfs;
+}
+
+void initProcess() {
+	front = rear = 0;
+	for (int i = 1; i <= N; i++){
+		for (int j = 1; j <= M; j++) {
+			visit[i][j] = 0;
+		}
+	}
+}
+
+void process() {
+	int maxBfs = 0;
+	for (int i = 1; i <= N; i++){
+		for (int j = 1; j <= M; j++) {
+			if (map[i][j] == 0) 
+				continue;
+			maxBfs = bfs({ i, j, 0 });
+			if (maxBfs > maxDist) 
+				maxDist = maxBfs;
+			initProcess();
+		}
+	}
+}
+
+void printResult() {
+	cout << maxDist << endl;
+}
+
+int main() {
+	dataInput();
+	process();
+	printResult();
+	return 0;
+}

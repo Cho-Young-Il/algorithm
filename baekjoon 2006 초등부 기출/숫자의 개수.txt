@@ -1,0 +1,37 @@
+#include <iostream>
+
+using namespace std;
+
+int S;
+int numArray[20];
+
+void dataInput() {
+	int mulSum = 1;
+	for (int i = 0; i < 3; i++){
+		int num;
+		cin >> num;
+		mulSum *= num;
+	}
+	S = mulSum;
+}
+
+void process() {
+	while (S > 0){
+		int curNum = S % 10;
+		numArray[curNum]++;
+		S /= 10;
+	}
+}
+
+void printResult() {
+	for (int i = 0; i < 10; i++){
+		cout << numArray[i] << endl;
+	}
+}
+
+int main() {
+	dataInput();
+	process();
+	printResult();
+	return 0;
+}

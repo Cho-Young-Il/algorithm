@@ -1,0 +1,54 @@
+#include <iostream>
+ 
+using namespace std;
+ 
+int H[10];
+int sum = 0;
+int idxI;
+int idxJ;
+ 
+void dataInput(){
+    for (int i = 0; i < 9; i++) {
+        cin >> H[i];
+        sum += H[i];
+    }
+    for (int i = 0; i < 8; i++) {
+        int min = 101, minIdx;
+        for (int j = i; j < 9; j++) {
+            if (min > H[j]) {
+                min = H[j];
+                minIdx = j;
+            }
+        }
+        H[minIdx] = H[i];
+        H[i] = min;
+    }
+}
+ 
+void process() {
+    bool found = false;
+    for (int i = 0; i < 8; i++) {
+        for (int j = i + 1; j < 9; j++) {
+            int curDiff = H[i] + H[j];
+            if (curDiff == (sum - 100)) {
+                idxI = i;   idxJ = j;   found = true;
+                break;
+            }
+        }
+        if (found) break;
+    }
+}
+ 
+void printResult() {
+    for (int i = 0; i < 9; i++) {
+        if (i == idxI || i == idxJ) continue;
+        cout << H[i] << endl;
+    }
+}
+ 
+int main() {
+    dataInput();
+    process();
+    printResult();
+    return 0;
+}
