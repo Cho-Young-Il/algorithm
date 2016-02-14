@@ -1,0 +1,22 @@
+#include <stdio.h>
+ 
+int main() {
+    char plate[55];
+    char tmp[1];
+    int len;
+    int result = 10;
+ 
+    scanf("%s", plate);
+    for (len = 0; plate[len] != 0; len++);
+ 
+    tmp[0] = plate[0];
+    for (int i = 1; i < len; i++) {
+        if (tmp[0] == plate[i]) {
+            result += 5;
+        }
+        else result += 10;
+        tmp[0] = plate[i];
+    }
+    printf("%d", result);
+ 
+}

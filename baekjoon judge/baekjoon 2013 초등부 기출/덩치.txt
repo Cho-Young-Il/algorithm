@@ -1,0 +1,35 @@
+#include <stdio.h>
+ 
+typedef struct Man {
+    int weight, height;
+};
+ 
+Man man[50];
+int rank[50];
+int n;
+ 
+int main() {
+     
+    scanf("%d", &n);
+ 
+    for (int i = 0; i < n; i++) {
+        scanf("%d %d", &man[i].weight, &man[i].height);
+    }
+ 
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (i == j) continue;
+            if (man[i].weight < man[j].weight && man[i].height < man[j].height)
+                rank[i]++;
+        }
+    }
+ 
+    for (int i = 0; i < n; i++) {
+        printf("%d ", rank[i]+1);
+    }
+ 
+    printf("\n");
+ 
+    return 0;
+ 
+}

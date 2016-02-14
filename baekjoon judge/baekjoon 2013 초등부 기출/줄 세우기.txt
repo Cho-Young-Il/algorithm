@@ -1,0 +1,21 @@
+#include <stdio.h>
+ 
+int dp[1000000];
+int arr[1000000];
+int idx = -999;
+ 
+int main() {
+    int n;
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+         
+        dp[arr[i]] = dp[arr[i] - 1] + 1;
+         
+        if (dp[arr[i]] > idx) 
+            idx = dp[arr[i]];
+    }
+     
+    printf("%d\n", n-idx);
+     
+}

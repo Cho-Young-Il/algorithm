@@ -1,0 +1,119 @@
+#include <stdio.h>
+ 
+ 
+typedef struct Queue {
+    int x, y, z;
+    int cnt;
+}Queue;
+ 
+Queue q[7000000];
+int map[110][110][110];
+int visit[110][110][110];
+int front, rear, count, maxCnt, resCnt, cnt;
+int row, col, height, xStart, yStart, zStart;
+int resArr[1001000], result;
+bool TOMATO;
+bool SPREAD;
+int dx[6] = { -1, 1, 0, 0, 0, 0 };
+int dy[6] = { 0, 0, - 1, 1 , 0, 0};
+int dz[6] = { 0, 0, 0, 0 , -1, 1};
+ 
+void enQueue(int x, int y, int z, int cnt) {
+    q[rear].x = x;
+    q[rear].y = y;
+    q[rear].z = z;
+    q[rear].cnt = cnt;
+    rear++;
+}
+ 
+void init() {
+    for (int k = 0; k < 110; k++) {
+    for (int i = 0; i < 110; i++) {
+        for (int j = 0; j < 110; j++) {
+             
+                map[i][j][k] = -1;
+                visit[i][j][k] = -1;
+            }
+        }
+    }
+    front = rear = count = maxCnt = resCnt = row = col = height = 0;
+    xStart = yStart = zStart = cnt = result = 0, TOMATO = SPREAD= true;
+}
+ 
+void input() {
+    scanf("%d %d %d", &col, &row, &height);
+    for (int k = 1; k <= height; k++) {
+        for (int i = 1; i <= row; i++) {
+            for (int j = 1; j <= col; j++) {
+                 
+                scanf("%d", &map[i][j][k]);
+                if (map[i][j][k] == 0) TOMATO = false;
+            }
+        }
+    }
+}
+ 
+void bfs() {
+    while (front < rear) {
+        xStart = q[front].x;
+        yStart = q[front].y;
+        zStart = q[front].z;
+        count = q[front].cnt;
+        front++;
+         
+ 
+        for (int i = 0; i < 6; i++) {
+            if (map[xStart + dx[i]][yStart + dy[i]][zStart + dz[i]] == 0 &&
+                visit[xStart + dx[i]][yStart + dy[i]][zStart + dz[i]] == -1) {
+                visit[xStart + dx[i]][yStart + dy[i]][zStart + dz[i]] = 1;
+                enQueue(xStart + dx[i], yStart + dy[i], zStart + dz[i], count + 1);
+            }
+        }
+    }
+    for (int k = 1; k <= height; k++) {
+        for (int i = 1; i <= row; i++) {
+            for (int j = 1; j <= col; j++) {
+ 
+                if (visit[i][j][k] == -1 && map[i][j][k] == 0) SPREAD = false;
+            }
+        }
+    }
+}
+ 
+void process() {
+    for (int k = 1; k <= height; k++) {
+        for (int i = 1; i <= row; i++) {
+            for (int j = 1; j <= col; j++) {
+ 
+ 
+                if (map[i][j][k] == 1 && visit[i][j][k] == -1) {
+                    visit[i][j][k] = 1;
+                    enQueue(i, j, k, 0);
+                     
+                }
+            }
+        }
+    }
+     
+    bfs();
+}
+                     
+void resPrint() {
+    if (SPREAD) printf("%d\n", count);
+    else printf("-1\n");
+ 
+}
+ 
+int main() {
+ 
+    init();
+    input();
+    if (TOMATO) {
+        printf("0\n");
+        return 0;
+    }
+    process();
+    resPrint();
+     
+    return 0;
+}
