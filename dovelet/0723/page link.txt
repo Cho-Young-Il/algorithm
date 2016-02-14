@@ -1,0 +1,10 @@
+1.	http://59.23.113.171/30stair/maze/maze.php?pname=maze
+	 -> dfs, bfs 둘다 만들어보기
+
+2.	http://59.23.113.171/30stair/01knapsack/01knapsack.php?pname=01knapsack
+
+3.	http://59.23.113.171/30stair/snail_trails/snail_trails.php?pname=snail_trails
+
+4.	http://59.23.113.171/pool/charm/charm.php?pname=charm
+
+5.	http://59.23.113.171/judgeonline/sts.php?pname=prime_path
