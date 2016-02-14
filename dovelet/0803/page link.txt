@@ -1,0 +1,12 @@
+http://59.23.113.171/30stair/range/range.php?pname=range
+
+http://59.23.113.171/30stair/snowboard/snowboard.php?pname=snowboard
+
+http://59.23.113.171/30stair/catch_cow/catch_cow.php?pname=catch_cow
+
+http://59.23.113.171/30stair/pstring/pstring.php?pname=pstring
+
+http://59.23.113.171/30stair/odometer/odometer.php?pname=odometer
+
+http://59.23.113.171/30stair/jumping_cow/jumping_cow.php?pname=jumping_cow
+
