@@ -1,0 +1,1 @@
+500!factorial https://www.acmicpc.net/problem/1676
